@@ -1,3 +1,5 @@
 spring:
   application:
     name: oquefiz
+  profiles:
+    active: dev
