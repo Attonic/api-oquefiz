@@ -35,8 +35,8 @@ public class User implements UserDetails {
     @Column(name = "user_id")
     private UUID userId;
 
-    @Column(name = "name", length = 100)
-    private String name;
+    @Column(name = "user_name", length = 100)
+    private String userName;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -74,7 +74,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return userName;
     }
 
     @Override
