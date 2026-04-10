@@ -3,3 +3,8 @@ spring:
     name: oquefiz
   profiles:
     active: dev
+
+api:
+  secutiry:
+    token:
+      secret: ${JWT_SECRET}
