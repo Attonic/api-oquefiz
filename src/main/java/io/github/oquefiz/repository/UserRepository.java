@@ -1,5 +1,6 @@
 package io.github.oquefiz.repository;
 
+import io.github.oquefiz.dto.Request.UserRequestDto;
 import io.github.oquefiz.model.User;
 import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,9 @@ import java.util.UUID;
 @Registered
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    Optional<User> findByEmail(String email);
+    Optional<UserRequestDto> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    boolean existsByUserName(String userName);
 }
