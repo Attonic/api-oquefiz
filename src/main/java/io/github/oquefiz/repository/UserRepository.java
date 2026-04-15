@@ -1,6 +1,5 @@
 package io.github.oquefiz.repository;
 
-import io.github.oquefiz.dto.Request.UserRequestDto;
 import io.github.oquefiz.model.User;
 import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;

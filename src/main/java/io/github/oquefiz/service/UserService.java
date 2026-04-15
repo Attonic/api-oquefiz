@@ -1,7 +1,6 @@
 package io.github.oquefiz.service;
 
 
-import io.github.oquefiz.dto.Request.UserRequestDto;
 import io.github.oquefiz.dto.Response.UserResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

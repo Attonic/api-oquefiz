@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record UserRequestDto(
+public record RegisterRequestDto(
 
         @NotBlank(message = "Nome de usuário é obrigatório.")
         @Size(min = 4, max = 80, message = "Nome deve ter entre 4 a 80 caracteres.")
