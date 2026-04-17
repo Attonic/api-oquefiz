@@ -14,6 +14,10 @@ public interface UserService extends UserDetailsService {
 
     UserResponseDto findById(UUID uuid);
 
+    boolean existsByEmail(String email);
+
+    boolean existsByUserName(String userName);
+
 
 
 

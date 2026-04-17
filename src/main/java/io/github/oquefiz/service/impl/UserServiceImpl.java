@@ -1,5 +1,6 @@
 package io.github.oquefiz.service.impl;
 
+import io.github.exception.NotFoundException;
 import io.github.oquefiz.dto.Response.UserResponseDto;
 import io.github.oquefiz.repository.UserRepository;
 import io.github.oquefiz.service.UserService;
@@ -35,7 +36,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+
+    }
+
+    @Override
+    public boolean existsByUserName(String userName) {
+        return userRepository.existsByUserName(userName);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        return userRepository.findByUserName(username)
+                .orElseThrow(() -> new NotFoundException("Nome de Usuário não encontrado."));
     }
 }
