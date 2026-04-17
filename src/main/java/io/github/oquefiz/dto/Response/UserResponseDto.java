@@ -1,6 +1,7 @@
 package io.github.oquefiz.dto.Response;
 
 import io.github.oquefiz.model.User;
+import io.github.oquefiz.model.enums.UserRole;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,14 +12,14 @@ public record UserResponseDto(
         UUID userId,
         String userName,
         String email,
-        LocalDateTime createdAt
+        UserRole role
 ) {
     public static UserResponseDto fromEntity(User user){
         return new UserResponseDto(
           user.getUserId(),
-          user.getUsername(),
+          user.getUserName(),
           user.getEmail(),
-          user.getCreatedAt()
+          user.getRole()
         );
     }
 }
