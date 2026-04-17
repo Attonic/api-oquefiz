@@ -3,16 +3,19 @@ package io.github.oquefiz.model;
 import io.github.oquefiz.model.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.jspecify.annotations.Nullable;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,13 +28,14 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(name = "user_tb")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
     private UUID userId;
 
@@ -44,7 +48,7 @@ public class User implements UserDetails {
     @Column(name = "password", length = 300)
     private String password;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     @Builder.Default
     private UserRole role = UserRole.EMPLOYEE;
@@ -58,7 +62,7 @@ public class User implements UserDetails {
     private LocalDateTime createdAt;
 
     @Column(name = "update_at", nullable = false)
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updateAt;
 
 
@@ -67,33 +71,37 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
     @Override
-    public @Nullable String getPassword() {
-        return null;
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return userName;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return this.active;
     }
 }
