@@ -1,6 +1,7 @@
 package io.github.oquefiz.service.impl;
 
 import io.github.exception.ConflictException;
+import io.github.exception.NotFoundException;
 import io.github.oquefiz.config.security.TokenService;
 import io.github.oquefiz.dto.Request.ChangePasswordRequestDto;
 import io.github.oquefiz.dto.Request.LoginRequestDto;
@@ -30,18 +31,15 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse login(LoginRequestDto requestDto) {
         var authToken = new UsernamePasswordAuthenticationToken(
-                requestDto.Email(), requestDto.password());
+                requestDto.Email(),
+                requestDto.password());
 
-        var authenticatio = authenticationManager.authenticate(authToken);
-        User user = (User) authenticatio.getPrincipal();
+        var authentication = authenticationManager.authenticate(authToken);
+
+        User user = (User) authentication.getPrincipal();
         String token = tokenService.generateToken(user);
 
-        var userDto = new UserResponseDto(
-                user.getUserId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getRole()
-        );
+        UserResponseDto userDto = UserResponseDto.fromEntity(user);
 
         return new AuthResponse(token, userDto);
     }
@@ -60,13 +58,27 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
-        var userResponse = UserResponseDto.fromEntity(user);
-
         String token = tokenService.generateToken(user);
+
+        UserResponseDto userResponse = UserResponseDto.fromEntity(user);
+
         return new AuthResponse(token, userResponse);
     }
 
     @Override
     public void changePassword(String email, ChangePasswordRequestDto requestDto) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NotFoundException("Email não encontrado."));
+
+        if(!passwordEncoder.matches(requestDto.currentPassword(), user.getPassword())){
+            throw new IllegalArgumentException("Senha atual incorreta.");
+        }
+
+        if (!requestDto.newPassword().equals(requestDto.confirmPassword())){
+            throw new IllegalArgumentException("Senhas não conferem.");
+        }
+
+        user.setPassword(passwordEncoder.encode(requestDto.newPassword()));
+        userRepository.save(user);
     }
 }

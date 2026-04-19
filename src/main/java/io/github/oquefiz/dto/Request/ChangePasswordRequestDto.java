@@ -10,6 +10,10 @@ public record ChangePasswordRequestDto(
 
         @NotBlank(message = "Nova Senha deve ser informada.")
         @Size(min = 6, max = 100)
-        String newPassword
+        String newPassword,
+
+        @NotBlank(message = "Confirmação de senha deve ser informada.")
+        @Size(min = 6, max = 100)
+        String confirmPassword
 ) {
 }
