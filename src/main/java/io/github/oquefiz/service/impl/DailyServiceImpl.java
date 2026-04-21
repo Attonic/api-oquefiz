@@ -27,7 +27,7 @@ public class DailyServiceImpl implements DailyService {
     @Transactional(readOnly = true)
     public Page<DailyResponse> findAll(Pageable pageable) {
         return dailyRepository.findAll(pageable)
-                .map(DailyResponse::fronEntity);
+                .map(DailyResponse::fromEntity);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DailyServiceImpl implements DailyService {
     public DailyResponse findById(UUID uuid) {
         Daily daily = dailyRepository.findById(uuid)
                 .orElseThrow(() -> new NotFoundException("Daily não encontrada."));
-        return DailyResponse.fronEntity(daily);
+        return DailyResponse.fromEntity(daily);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DailyServiceImpl implements DailyService {
     public DailyResponse findByEmployee(Employee employee) {
         Daily daily = dailyRepository.findByEmployee(employee)
                 .orElseThrow(() -> new NotFoundException("Daily não encontrada."));
-        return DailyResponse.fronEntity(daily);
+        return DailyResponse.fromEntity(daily);
     }
 
     @Override
@@ -62,6 +62,6 @@ public class DailyServiceImpl implements DailyService {
                 .build();
 
         dailyRepository.save(daily);
-        return DailyResponse.fronEntity(daily);
+        return DailyResponse.fromEntity(daily);
     }
 }

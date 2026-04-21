@@ -17,7 +17,7 @@ public record DailyResponse(
         Employee employee
 
 ) {
-    public static DailyResponse fronEntity(Daily daily){
+    public static DailyResponse fromEntity(Daily daily){
         return new DailyResponse(
           daily.getDateRegister(),
           daily.getWhatIDid(),
