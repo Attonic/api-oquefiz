@@ -1,4 +1,4 @@
-package io.github.oquefiz.dto.Request;
+package io.github.oquefiz.dto.Response;
 
 import io.github.oquefiz.model.Employee;
 

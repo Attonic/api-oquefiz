@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -41,7 +40,7 @@ public class DailyServiceImpl implements DailyService {
     @Transactional(readOnly = true)
     public DailyResponse findByEmployee(Employee employee) {
         Daily daily = dailyRepository.findByEmployee(employee)
-                .orElseThrow(() -> new NotFoundException("Daily não encontrada."))
+                .orElseThrow(() -> new NotFoundException("Daily não encontrada."));
         return DailyResponse.fronEntity(daily);
     }
 
