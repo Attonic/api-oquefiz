@@ -11,6 +11,6 @@ import java.util.UUID;
 @Repository
 public interface DailyRepository extends JpaRepository<Daily, UUID> {
 
-    Optional<Daily> findByEmployee(Employee employee);
+    Optional<Daily> findByEmployee_EmployeeId(UUID employeeId);
 
 }

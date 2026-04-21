@@ -15,7 +15,7 @@ public interface DailyService {
 
     DailyResponse findById(UUID uuid);
 
-    DailyResponse findByEmployee(Employee employee);
+    DailyResponse findByEmployee(UUID employeeId);
 
     DailyResponse createDaily(DailyRequestDto dailyRequestDto);
 

@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class Daily {
     @Column(name = "creat_at", nullable = false, updatable = false)
     private LocalDateTime createAt;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     @Column(name = "update_at", nullable = false)
     private LocalDateTime updateAt;
 

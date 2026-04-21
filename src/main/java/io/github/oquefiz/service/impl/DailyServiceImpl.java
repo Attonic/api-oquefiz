@@ -40,9 +40,14 @@ public class DailyServiceImpl implements DailyService {
 
     @Override
     @Transactional(readOnly = true)
-    public DailyResponse findByEmployee(Employee employee) {
-        Daily daily = dailyRepository.findByEmployee(employee)
+    public DailyResponse findByEmployee(UUID employeeId) {
+
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new NotFoundException("Colaborador não encontrado."));
+
+        Daily daily = dailyRepository.findByEmployee_EmployeeId(employeeId)
                 .orElseThrow(() -> new NotFoundException("Daily não encontrada."));
+
         return DailyResponse.fromEntity(daily);
     }
 
