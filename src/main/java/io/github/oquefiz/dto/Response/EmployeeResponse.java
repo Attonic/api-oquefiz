@@ -13,7 +13,7 @@ public record EmployeeResponse(
         String jobTitle,
         LocalDate birthDate
 ) {
-    public static EmployeeResponse toEntity(Employee employee){
+    public static EmployeeResponse fromEntity(Employee employee){
         return new EmployeeResponse(
                 employee.getEmployeeId(),
                 employee.getUser().getUserId(),

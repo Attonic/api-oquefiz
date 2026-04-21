@@ -28,21 +28,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(readOnly = true)
     public Page<EmployeeResponse> findAll(Pageable pageable) {
         return employeeRepository.findAll(pageable)
-                .map(EmployeeResponse::toEntity);
+                .map(EmployeeResponse::fromEntity);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<EmployeeResponse> findByActiveTrue(Pageable pageable) {
         return employeeRepository.findAllByUser_ActiveTrue(pageable)
-                .map(EmployeeResponse::toEntity);
+                .map(EmployeeResponse::fromEntity);
     }
 
     @Override
     @Transactional(readOnly = true)
     public EmployeeResponse findById(UUID uuid) {
         return employeeRepository.findById(uuid)
-                .map(EmployeeResponse::toEntity)
+                .map(EmployeeResponse::fromEntity)
                 .orElseThrow(() -> new NotFoundException("Colaborador não encontrado."));
     }
 
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(readOnly = true)
     public EmployeeResponse findByUserId(UUID userId) {
         return employeeRepository.findByUser_UserId(userId)
-                .map(EmployeeResponse::toEntity)
+                .map(EmployeeResponse::fromEntity)
                 .orElseThrow(() -> new NotFoundException("Colaborador não encontrado"));
     }
 
@@ -76,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeRepository.save(employee);
 
-        return EmployeeResponse.toEntity(employee);
+        return EmployeeResponse.fromEntity(employee);
     }
 
     @Override
@@ -89,12 +89,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new ConflictException("Já existe colaborador com esse email.");
         }
 
-        employee = Employee.builder()
-                .name(employeeRequest.name())
-                .email(employeeRequest.email())
-                .jobTitle(employeeRequest.jobTitle())
-                .birthDate(employeeRequest.birthDate())
-                .build();
+        employee.setName(employeeRequest.name());
+        employee.setEmail(employeeRequest.email());
+        employee.setJobTitle(employeeRequest.jobTitle());
+        employee.setBirthDate(employeeRequest.birthDate());
 
         if (employeeRequest.userId() != null) {
             User user = userRepository.findById(employeeRequest.userId())
@@ -104,6 +102,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
          employeeRepository.save(employee);
 
-        return EmployeeResponse.toEntity(employee);
+        return EmployeeResponse.fromEntity(employee);
     }
 }

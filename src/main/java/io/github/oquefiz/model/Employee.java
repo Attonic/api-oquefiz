@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,7 +42,7 @@ public class Employee {
     @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
 
-    @Column(name = "job_title", nullable = false, unique = true, length = 100)
+    @Column(name = "job_title", nullable = false, length = 100)
     private String jobTitle;
 
     @Column(name = "birth_date")
@@ -52,7 +53,7 @@ public class Employee {
     private LocalDateTime createdAt;
 
     @Column(name = "update_at", nullable = false)
-    @CreationTimestamp
+    @UpdateTimestamp
     private LocalDateTime updateAt;
 
 
