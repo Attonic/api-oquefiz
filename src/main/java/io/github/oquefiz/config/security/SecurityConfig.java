@@ -42,10 +42,6 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers(PUBLIC_ROUTES).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/search/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/tags/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

@@ -16,7 +16,7 @@ public record EmployeeResponse(
     public static EmployeeResponse fromEntity(Employee employee){
         return new EmployeeResponse(
                 employee.getEmployeeId(),
-                employee.getUser().getUserId(),
+                employee.getUser() != null ? employee.getUser().getUserId() : null,
                 employee.getName(),
                 employee.getEmail(),
                 employee.getJobTitle(),

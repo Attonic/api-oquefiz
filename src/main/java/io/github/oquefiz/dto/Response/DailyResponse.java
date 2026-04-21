@@ -5,6 +5,7 @@ import io.github.oquefiz.model.Employee;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record DailyResponse(
 
@@ -14,7 +15,8 @@ public record DailyResponse(
         String obstacle,
         String nextSteps,
         LocalDateTime updatedAt,
-        Employee employee
+        UUID employeeId,
+        String employeeName
 
 ) {
     public static DailyResponse fromEntity(Daily daily){
@@ -25,7 +27,8 @@ public record DailyResponse(
           daily.getObstacle(),
           daily.getNextSteps(),
           daily.getCreateAt(),
-          daily.getEmployee()
+                daily.getEmployee().getEmployeeId(),
+                daily.getEmployee().getName()
         );
     }
 }
