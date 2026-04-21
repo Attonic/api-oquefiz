@@ -15,7 +15,7 @@ public record EmployeeRequest(
 
     @NotBlank(message = "Nome é obrigatório.")
     @Size(max = 150)
-    String nome,
+    String name,
 
     @NotBlank(message = "Email é obrigatório.")
     @Email(message = "Email inválido.")

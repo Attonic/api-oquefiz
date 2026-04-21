@@ -2,6 +2,7 @@ package io.github.oquefiz.repository;
 
 import io.github.oquefiz.model.Employee;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
-    Page<Employee> findAllByUser_ActiveTrue();
+    Page<Employee> findAllByUser_ActiveTrue(Pageable pageable);
 
     boolean existsByEmail(String email);
 
