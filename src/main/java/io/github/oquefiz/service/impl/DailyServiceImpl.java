@@ -6,6 +6,7 @@ import io.github.oquefiz.dto.Response.DailyResponse;
 import io.github.oquefiz.model.Daily;
 import io.github.oquefiz.model.Employee;
 import io.github.oquefiz.repository.DailyRepository;
+import io.github.oquefiz.repository.EmployeeRepository;
 import io.github.oquefiz.service.DailyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class DailyServiceImpl implements DailyService {
 
     private final DailyRepository dailyRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -47,6 +49,19 @@ public class DailyServiceImpl implements DailyService {
     @Override
     @Transactional
     public DailyResponse createDaily(DailyRequestDto dailyRequestDto) {
-        return null;
+        Employee employee = employeeRepository.findById(dailyRequestDto.employeeId())
+                .orElseThrow(() -> new NotFoundException("Colaborador não encontrado."));
+
+        Daily daily = Daily.builder()
+                .dateRegister(dailyRequestDto.dateRegister())
+                .whatIDid(dailyRequestDto.whatIDid())
+                .difficulty(dailyRequestDto.difficult())
+                .obstacle(dailyRequestDto.obstacle())
+                .nextSteps(dailyRequestDto.nextSteps())
+                .employee(employee)
+                .build();
+
+        dailyRepository.save(daily);
+        return DailyResponse.fronEntity(daily);
     }
 }
