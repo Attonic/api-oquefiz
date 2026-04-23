@@ -1,4 +1,4 @@
-package io.github.exception;
+package io.github.oquefiz.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

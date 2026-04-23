@@ -1,16 +1,15 @@
-package io.github.exception.handler;
+package io.github.oquefiz.exception.handler;
 
-import io.github.exception.ConflictException;
-import io.github.exception.ForbidenException;
-import io.github.exception.NotFoundException;
-import io.github.exception.UnauthorizedException;
+import io.github.oquefiz.exception.ConflictException;
+import io.github.oquefiz.exception.ForbidenException;
+import io.github.oquefiz.exception.NotFoundException;
+import io.github.oquefiz.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 

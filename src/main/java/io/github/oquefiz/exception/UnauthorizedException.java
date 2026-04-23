@@ -1,4 +1,4 @@
-package io.github.exception;
+package io.github.oquefiz.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 /**
- * HTTP status 404
+ * Http status 401
  */
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.UNAUTHORIZED)
 @Getter
-public class NotFoundException extends RuntimeException{
+public class UnauthorizedException extends RuntimeException{
 
     private final List<String> messages;
 
-    public NotFoundException(String message){
+    public UnauthorizedException(String message){
         super(message);
         this.messages = List.of(message);
     }
 
-    public NotFoundException(List<String> messages){
+    public UnauthorizedException(List<String> messages){
         super(messages.toString());
         this.messages = messages;
     }

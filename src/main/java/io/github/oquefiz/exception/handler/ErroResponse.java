@@ -1,4 +1,4 @@
-package io.github.exception.handler;
+package io.github.oquefiz.exception.handler;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
