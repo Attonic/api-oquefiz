@@ -1,7 +1,7 @@
 package io.github.oquefiz.service.impl;
 
-import io.github.exception.ConflictException;
-import io.github.exception.NotFoundException;
+import io.github.oquefiz.exception.ConflictException;
+import io.github.oquefiz.exception.NotFoundException;
 import io.github.oquefiz.dto.Request.EmployeeRequest;
 import io.github.oquefiz.dto.Response.EmployeeResponse;
 import io.github.oquefiz.model.Employee;

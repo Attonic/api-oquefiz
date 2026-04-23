@@ -1,6 +1,6 @@
 package io.github.oquefiz.service.impl;
 
-import io.github.exception.NotFoundException;
+import io.github.oquefiz.exception.NotFoundException;
 import io.github.oquefiz.dto.Response.UserResponseDto;
 import io.github.oquefiz.repository.UserRepository;
 import io.github.oquefiz.service.UserService;
