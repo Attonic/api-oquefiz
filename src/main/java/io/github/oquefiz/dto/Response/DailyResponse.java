@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record DailyResponse(
-
+        UUID dailyId,
         LocalDate dateRagister,
         String whatIDid,
         String difficulty,
@@ -21,6 +21,7 @@ public record DailyResponse(
 ) {
     public static DailyResponse fromEntity(Daily daily){
         return new DailyResponse(
+                daily.getDailyId(),
           daily.getDateRegister(),
           daily.getWhatIDid(),
           daily.getDifficulty(),
