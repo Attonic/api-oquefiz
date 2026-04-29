@@ -119,4 +119,56 @@ public class EmployeeServiceImplTest {
         }
     }
 
+    @Nested
+    @DisplayName("update()")
+    class Update {
+
+        @Test
+        @DisplayName("Deve atualizar colaborador e persistir as mudanças")
+        void deveAtualizarColaboradorEPersistirMudancas() {
+            EmployeeResponse atualizado = employeeService.update(
+                    employeeId,
+                    new EmployeeRequest(
+                            "João Silva Atualizado",
+                            "joao@empresa.com",
+                            "Tech Lead",
+                            LocalDate.of(1995, 5, 20),
+                            null
+                    )
+            );
+            assertThat(atualizado.name()).isEqualTo("João Silva Atualizado");
+            assertThat(atualizado.jobTitle()).isEqualTo("Tech Lead");
+        }
+
+        @Test
+        @DisplayName("Deve lançar ConflictException ao trocar para email já usado por outro colaborador")
+        void deveLancarConflictAoTrocarParaEmailJaExistente() {
+            employeeService.create(new EmployeeRequest(
+                    "Maria Souza",
+                    "maria@empresa.com",
+                    "QA",
+                    LocalDate.now(),
+                    null
+            ));
+
+            assertThatThrownBy(() ->
+                    employeeService.update(employeeId, new EmployeeRequest(
+                            "João Silva",
+                            "maria@empresa.com",
+                            "Dev Backend",
+                            LocalDate.of(1995, 5, 20),
+                            null
+                    ))
+            ).isInstanceOf(ConflictException.class);
+        }
+
+        @Test
+        @DisplayName("Deve lançar NotFoundException ao atualizar colaborador inexistente")
+        void deveLancarNotFoundAoAtualizarInexistente() {
+            assertThatThrownBy(() ->
+                    employeeService.update(UUID.randomUUID(), requestPadrao())
+            ).isInstanceOf(NotFoundException.class);
+        }
+    }
+
 }
