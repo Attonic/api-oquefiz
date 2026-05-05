@@ -17,7 +17,7 @@ public class TokenService {
     private static final String HEADER_STRING = "Authorization";
     private static final String ISSUER = "o-que-fiz-api";
 
-    @Value("${JWT_SECRET")
+    @Value("${JWT_SECRET}")
     private String jwtSecret;
 
    @Value("${jwt.expiration.hours:24}")
