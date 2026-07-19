@@ -2,7 +2,6 @@ package io.github.oquefiz.service;
 
 import io.github.oquefiz.dto.Request.DailyRequestDto;
 import io.github.oquefiz.dto.Response.DailyResponse;
-import io.github.oquefiz.model.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,5 +18,6 @@ public interface DailyService {
 
     DailyResponse createDaily(DailyRequestDto dailyRequestDto);
 
+    DailyResponse updateDaily(UUID dailyID, DailyRequestDto dailyRequestDto);
 
 }

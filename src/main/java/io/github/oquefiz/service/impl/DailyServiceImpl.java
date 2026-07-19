@@ -69,4 +69,21 @@ public class DailyServiceImpl implements DailyService {
         dailyRepository.save(daily);
         return DailyResponse.fromEntity(daily);
     }
+
+    @Override
+    @Transactional
+    public DailyResponse updateDaily(UUID dailyID, DailyRequestDto dailyRequestDto) {
+
+        Daily daily = dailyRepository.findById(dailyID)
+                .orElseThrow(() -> new NotFoundException("Daily não encontrada"));
+
+        daily.setWhatIDid(dailyRequestDto.whatIDid());
+        daily.setDifficulty(dailyRequestDto.difficult());
+        daily.setObstacle(dailyRequestDto.obstacle());
+        daily.setNextSteps(dailyRequestDto.nextSteps());
+
+        dailyRepository.save(daily);
+        return DailyResponse.fromEntity(daily);
+    }
+
 }

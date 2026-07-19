@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,14 +60,13 @@ public class DailyController {
         return ResponseEntity.ok(dailyService.findByEmployee(employeeId));
     }
 
-//    @PutMapping("/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    @Operation(summary = "Atualizar uma Daily")
-//    public ResponseEntity<DailyResponse> update(
-//        @PathVariable UUID id,
-//        @Valid @RequestBody DailyRequestDto dailyRequestDto
-//    ){
-//        return ResponseEntity.ok(dailyService.(id, dailyRequestDto));
-//    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<DailyResponse> update(
+        @PathVariable UUID id,
+        @Valid @RequestBody DailyRequestDto dailyRequestDto
+    ){
+        return ResponseEntity.ok(dailyService.updateDaily(id, dailyRequestDto));
+    }
 
 }
