@@ -29,7 +29,6 @@ public class DailyController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Busca todas as dailies")
     public ResponseEntity<Page<DailyResponse>> findAll(
             Pageable pageable
     ){
@@ -47,7 +46,6 @@ public class DailyController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Cria uma nova Daily")
     public ResponseEntity<DailyResponse> create(
             @Valid @RequestBody DailyRequestDto requestDto
             ){
