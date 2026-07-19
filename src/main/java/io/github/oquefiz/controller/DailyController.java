@@ -52,6 +52,13 @@ public class DailyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dailyService.createDaily(requestDto));
     }
 
+    @GetMapping("/{employeeId}")
+    public ResponseEntity<DailyResponse> findByEmployee(
+            @PathVariable UUID employeeId
+        ){
+        return ResponseEntity.ok(dailyService.findByEmployee(employeeId));
+    }
+
 //    @PutMapping("/{id}")
 //    @PreAuthorize("hasRole('ADMIN')")
 //    @Operation(summary = "Atualizar uma Daily")
