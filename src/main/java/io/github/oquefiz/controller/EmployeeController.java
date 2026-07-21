@@ -32,7 +32,6 @@ public class EmployeeController {
 
     @GetMapping("/ativos")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Lista Todos os Colaboradores ativos")
     public ResponseEntity<Page<EmployeeResponse>> findAllAtivo(
             Pageable pageable
     ){
@@ -41,7 +40,6 @@ public class EmployeeController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Lista todos os colaboradores")
     public ResponseEntity<Page<EmployeeResponse>> findAll(
             Pageable pageable
     ){
