@@ -24,15 +24,20 @@ public class TokenService {
     private int expirationHours;
 
     public String generateToken(User user) {
-        Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
+        try {
 
-        return JWT.create()
-                .withIssuer(ISSUER)
-                .withIssuer(user.getEmail())
-                .withClaim("id", user.getUserId().toString())
-                .withClaim("name", user.getUsername())
-                .withExpiresAt(Instant.now().plus(expirationHours, ChronoUnit.HOURS))
-                .sign(algorithm);
+            Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
+            String token = JWT.create()
+                    .withIssuer(ISSUER)
+                    .withSubject(user.getEmail())
+                    .withClaim("id", user.getUserId().toString())
+                    .withClaim("name", user.getUsername())
+                    .withExpiresAt(Instant.now().plus(expirationHours, ChronoUnit.HOURS))
+                    .sign(algorithm);
+            return token;
+        } catch (JWTCreationException e){
+            throw new RuntimeException("Erro ao gerar token", e);
+        }
     }
 
     public String validateToken(String token) {
@@ -46,7 +51,7 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTCreationException e) {
-            return null;
+            throw new RuntimeException("Token JWT inválido ou expirado.", e);
         }
     }
 
