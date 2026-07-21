@@ -1,5 +1,6 @@
 package io.github.oquefiz.controller;
 
+import io.github.oquefiz.controller.documentation.IUserControllerDoc;
 import io.github.oquefiz.dto.Response.UserResponseDto;
 import io.github.oquefiz.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,13 +21,12 @@ import java.util.UUID;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @Tag(name = "Usuários")
-public class UserController {
+public class UserController implements IUserControllerDoc {
 
     private final UserService userService;
 
     @GetMapping()
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Buscar todos os usuário")
     public ResponseEntity<Page<UserResponseDto>> findAll(
             Pageable pageable){
         return ResponseEntity.ok(userService.findAll(pageable));
@@ -34,7 +34,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Busca por usuário por Id")
     public ResponseEntity<UserResponseDto> findById(
             @PathVariable UUID id
             ){
