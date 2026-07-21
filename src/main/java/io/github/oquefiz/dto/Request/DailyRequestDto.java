@@ -27,7 +27,7 @@ public record DailyRequestDto(
         @Size(max = 1000)
         String nextSteps,
 
-        @Size(max = 1000)
+
         UUID employeeId
 ) {
 }
