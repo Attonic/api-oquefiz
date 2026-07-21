@@ -53,7 +53,7 @@ public class DailyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dailyService.createDaily(requestDto));
     }
 
-    @GetMapping("/{employeeId}")
+    @GetMapping("employee/{employeeId}")
     public ResponseEntity<DailyResponse> findByEmployee(
             @PathVariable UUID employeeId
         ){
