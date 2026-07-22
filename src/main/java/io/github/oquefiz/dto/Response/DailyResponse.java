@@ -1,7 +1,6 @@
 package io.github.oquefiz.dto.Response;
 
 import io.github.oquefiz.model.Daily;
-import io.github.oquefiz.model.Employee;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
