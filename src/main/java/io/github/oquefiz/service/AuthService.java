@@ -5,13 +5,15 @@ import io.github.oquefiz.dto.Request.LoginRequestDto;
 import io.github.oquefiz.dto.Request.RegisterRequestDto;
 import io.github.oquefiz.dto.Response.AuthResponse;
 
+import java.util.UUID;
+
 public interface AuthService {
 
     AuthResponse login(LoginRequestDto requestDto);
 
     AuthResponse register(RegisterRequestDto requestDto);
 
-    void changePassword(String email, ChangePasswordRequestDto requestDto);
+    void changePassword(UUID uuid, ChangePasswordRequestDto requestDto);
 
 
 

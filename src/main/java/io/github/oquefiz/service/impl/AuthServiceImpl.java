@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -66,9 +68,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void changePassword(String email, ChangePasswordRequestDto requestDto) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException("Email não encontrado."));
+    public void changePassword(UUID uuid, ChangePasswordRequestDto requestDto) {
+        User user = userRepository.findById(uuid)
+                .orElseThrow(() -> new NotFoundException("Usuário não encontrado."));
 
         if(!passwordEncoder.matches(requestDto.currentPassword(), user.getPassword())){
             throw new IllegalArgumentException("Senha atual incorreta.");
@@ -78,7 +80,12 @@ public class AuthServiceImpl implements AuthService {
             throw new IllegalArgumentException("Senhas não conferem.");
         }
 
+        if (passwordEncoder.matches(requestDto.newPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("A nova senha não pode ser a mesma atual.");
+        }
+
         user.setPassword(passwordEncoder.encode(requestDto.newPassword()));
         userRepository.save(user);
+
     }
 }
