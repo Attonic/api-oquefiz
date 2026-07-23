@@ -46,7 +46,8 @@ public class AuthController implements IAuthControllerDoc {
     }
 
     @PostMapping("/{id}/password/")
-    public ResponseEntity<Void> changePassword(@PathVariable UUID id, @Valid @RequestBody ChangePasswordRequestDto dto){
+    public ResponseEntity<Void> changePassword(@PathVariable UUID id,
+                                               @Valid @RequestBody ChangePasswordRequestDto dto){
         authService.changePassword(id, dto);
         return ResponseEntity.noContent().build();
     }
